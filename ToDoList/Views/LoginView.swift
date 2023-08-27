@@ -11,25 +11,28 @@ struct LoginView: View {
     @State var email = ""
     @State var pwd = ""
     
-    
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack{
-                HeaderView()
+                HeaderView(
+                    title: "To Do List",
+                    subtitle: "Get things done",
+                    angle: 15,
+                    background: .blue)
                 
                 Form{
                     TextField("Email", text: $email)
                         .textFieldStyle(DefaultTextFieldStyle())
                     SecureField("Password", text: $pwd)
                         .textFieldStyle(DefaultTextFieldStyle())
-                    
+
                     Button{
-                        
+
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .foregroundColor(Color.blue)
-                            
+
                             Text("Login")
                                 .foregroundColor(Color.white)
                                 .bold()
@@ -37,7 +40,8 @@ struct LoginView: View {
                     }
                     .padding()
                 }
-                
+                .offset(y: -50)
+
                 VStack {
                     Text("New around here?")
                     NavigationLink("Creating An Acccount", destination: RegisterView())

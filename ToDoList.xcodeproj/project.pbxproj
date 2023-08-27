@@ -116,8 +116,8 @@
 				CF45C3572A99DF7300B19751 /* ToDoListItemView.swift */,
 				CF45C3592A99DFBF00B19751 /* ToDoListView.swift */,
 				CF45C35B2A99DFEE00B19751 /* NewItemView.swift */,
-				CF45C35D2A99DFFF00B19751 /* LoginView.swift */,
 				CF45C35F2A99E00F00B19751 /* RegisterView.swift */,
+				CF45C35D2A99DFFF00B19751 /* LoginView.swift */,
 				CF45C3732A9A035700B19751 /* HeaderView.swift */,
 			);
 			path = Views;
