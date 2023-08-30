@@ -12,41 +12,43 @@ struct LoginView: View {
     
     var body: some View {
         NavigationStack {
-            VStack{
-                HeaderView(
-                    title: "To Do List",
-                    subtitle: "Get things done",
-                    angle: 15,
-                    background: .blue)
-                
-                Form{
-                    if !viewModel.errorMessage.isEmpty{
-                        Text(viewModel.errorMessage)
-                            .foregroundColor(Color.red)
-                    }
-                    
-                    TextField("Email", text: $viewModel.email)
-                        .textFieldStyle(DefaultTextFieldStyle())
-                        .textInputAutocapitalization(.none)
-                    
-                    SecureField("Password", text: $viewModel.password)
-                        .textFieldStyle(DefaultTextFieldStyle())
-                    
-                    TLButton(title: "Login", background: .blue) {
-                        viewModel.login()
-                    }
+            VStack {
+                Image(systemName: "lock.shield")
+                    .font(.largeTitle)
                     .padding()
+                
+                Spacer()
+                
+                TextField("Username", text:$viewModel.email)
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(5.0)
+                    .padding(.horizontal)
+                
+                SecureField("Password", text: $viewModel.password)
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(5.0)
+                    .padding(.horizontal)
+                
+                if !viewModel.errorMessage.isEmpty{
+                    Text(viewModel.errorMessage)
+                        .foregroundColor(Color.red)
                 }
-                .offset(y: -50)
+                
+                TLButton(title: "Login", background: .blue) {
+                    viewModel.login()
+                }
+                .padding()
+                
+                Spacer()
                 
                 VStack {
                     Text("New around here?")
                     NavigationLink("Creating An Acccount", destination: RegisterView())
                 }
-                .padding(.bottom, 50)
-                
-                Spacer()
             }
+            .padding()
         }
     }
 }
