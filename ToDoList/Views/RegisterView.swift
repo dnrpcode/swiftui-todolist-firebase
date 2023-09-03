@@ -12,41 +12,51 @@ struct RegisterView: View {
     
     var body: some View {
         NavigationStack {
-            VStack{
-                HeaderView(title: "Register", subtitle: "Start Organizing todos", angle: -15, background: .green)
-                
-                Form{
-                    
-                    if !viewModel.errorMessage.isEmpty{
-                        Text(viewModel.errorMessage)
-                            .foregroundColor(Color.red)
-                    }
-                    
-                    TextField("Fullname", text: $viewModel.name)
-                        .textFieldStyle(DefaultTextFieldStyle())
-                        .autocorrectionDisabled()
-                    
-                    TextField("Email", text: $viewModel.email)
-                        .textFieldStyle(DefaultTextFieldStyle())
-                        .autocorrectionDisabled()
-                        .textInputAutocapitalization(.none)
-                    
-                    
-                    SecureField("Password", text: $viewModel.password)
-                        .textFieldStyle(DefaultTextFieldStyle())
-                    
-                    TLButton(
-                        title: "Register",
-                        background: .green
-                    ) {
-                        viewModel.register()
-                    }
+            VStack {
+                Image(systemName: "lock.shield")
+                    .font(.largeTitle)
                     .padding()
-                }
-                .offset(y: -50)
                 
                 Spacer()
+                
+                TextField("Fullname", text: $viewModel.name)
+                    .autocorrectionDisabled()
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(5.0)
+                    .padding(.horizontal)
+                
+                TextField("Username", text:$viewModel.email)
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(5.0)
+                    .padding(.horizontal)
+                
+                SecureField("Password", text: $viewModel.password)
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(5.0)
+                    .padding(.horizontal)
+                
+                if !viewModel.errorMessage.isEmpty{
+                    Text(viewModel.errorMessage)
+                        .foregroundColor(Color.red)
+                }
+
+                TLButton(title: "Register", background: .blue) {
+                    viewModel.register()
+                }
+                .padding()
+                
+                Spacer()
+                
+                VStack {
+                    Text("Already have an account?")
+                    NavigationLink("Login", destination: LoginView())
+                }
+                
             }
+            .padding()
         }
     }
 }

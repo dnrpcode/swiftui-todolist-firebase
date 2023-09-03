@@ -18,17 +18,17 @@ struct TLButton: View {
         } label: {
             Text(title)
                 .foregroundColor(.white)
-                .background(background)
                 .cornerRadius(10)
                 .frame(maxWidth: .infinity)
         }
         .buttonStyle(.borderedProminent)
+        .tint(background)
     }
 }
 
 struct TLButton_Previews: PreviewProvider {
     static var previews: some View {
-        TLButton(title: "Title", background: .blue){
+        TLButton(title: "Title", background: .green){
             // Action
         }
     }

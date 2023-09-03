@@ -7,16 +7,21 @@
 
 import SwiftUI
 
-struct NewItemView: View {
-    @StateObject var viewModel = NewItemViewViewModel()
+struct UpdateTodoItemView: View {
+    @StateObject var viewModel: UpdateTodoViewViewModel
     @Binding var newItemPresented: Bool
+    
+    init(newItemPresented: Binding<Bool>, selectedItem: ToDoListItem?) {
+        _newItemPresented = newItemPresented
+        self._viewModel = StateObject(wrappedValue: UpdateTodoViewViewModel(data: selectedItem))
+    }
     
     var body: some View {
         VStack{
-            Text("New Item")
+            Text(viewModel.titleHeader)
                 .font(.system(size: 32))
                 .bold()
-                .padding(.top, 40)
+                .padding(.top, 20)
             
             Form{
                 TextField("Title", text: $viewModel.title)
@@ -34,7 +39,8 @@ struct NewItemView: View {
                     }
                 }.padding()
                 
-            }.alert(isPresented: $viewModel.showAlert){
+            }
+            .alert(isPresented: $viewModel.showAlert){
                 Alert(
                     title: Text("Error"),
                     message: Text("Please fill in all field and select due date that is today or newer.")
@@ -44,13 +50,15 @@ struct NewItemView: View {
     }
 }
 
-struct NewItemView_Previews: PreviewProvider {
+struct UpdateTodoItemView_Previews: PreviewProvider {
     static var previews: some View {
-        NewItemView(newItemPresented: Binding(get: {
-            return true
-        }, set: { _ in
-            
-        }))
+        let dummyItem = ToDoListItem(id: "12345678", title: "halo", dueDate: 12345678, createdDate: 12345678, isDone: false)
+        let newItemPresented = Binding.constant(false)
+        
+        return UpdateTodoItemView(
+            newItemPresented: newItemPresented,
+            selectedItem: dummyItem
+        )
     }
 }
 

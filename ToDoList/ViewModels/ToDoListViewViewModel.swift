@@ -10,6 +10,7 @@ import Foundation
 
 class ToDoListViewViewModel: ObservableObject {
     @Published var showingNewItemView: Bool = false
+    @Published var selectedItem: ToDoListItem? = nil
     
     private let userId: String
     

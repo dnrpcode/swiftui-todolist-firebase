@@ -15,7 +15,7 @@ struct ToDoListView: View {
         self._items = FirestoreQuery(collectionPath: "users/\(userId)/todos")
         self._viewModel = StateObject(wrappedValue: ToDoListViewViewModel(userId: userId))
     }
-
+    
     var body: some View {
         NavigationView{
             VStack{
@@ -26,6 +26,11 @@ struct ToDoListView: View {
                                 viewModel.delete(id: item.id)
                             }
                             .tint(.red)
+                            Button("Edit") {
+                                viewModel.selectedItem = item
+                                viewModel.showingNewItemView = true
+                            }
+                            .tint(.blue)
                         }
                 }
                 .listStyle(PlainListStyle())
@@ -38,8 +43,13 @@ struct ToDoListView: View {
                     Image(systemName: "plus")
                 }
             }
-            .sheet(isPresented: $viewModel.showingNewItemView) {
-                NewItemView(newItemPresented: $viewModel.showingNewItemView)
+            .sheet(isPresented: $viewModel.showingNewItemView, onDismiss: {
+                viewModel.selectedItem = nil
+            }) {
+                UpdateTodoItemView(
+                    newItemPresented: $viewModel.showingNewItemView,
+                    selectedItem: viewModel.selectedItem
+                )
             }
         }
     }
